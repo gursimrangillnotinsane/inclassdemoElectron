@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="main.css">
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="p-4">
+        <nav class="p-4">
+            <a href="anotherPage.html">Another page</a>
+        </nav>
+        <section class="p-4">
+            <div class="flex justify-center">
+                <h1 id="title" class="text-2xl font-bold ">Notes App</h1>
+            </div>
+            <div class="my-4">
+                <div>
+                    <label for="notetitle">Title</label>
+                    <input type="text" id="notetitle" />
+
+                </div>
+                <div>
+                    <label for="content">Content</label>
+                    <input type="text" id="content" />
+
+                </div>
+                <button id="submit"
+                    class="mt-8 bg-zinc-700 p-2 rounded-xl text-white">Submit
+                    note</button>
+            </div>
+        </section>
+    </body>
+    <script src="script.js"></script>
+</html>

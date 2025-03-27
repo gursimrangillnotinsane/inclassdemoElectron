@@ -1,0 +1,11 @@
+body {
+    background-color: antiquewhite;
+}
+
+label {
+    margin-right: 2rem;
+}
+
+input {
+    border-bottom: 1px solid black;
+}
