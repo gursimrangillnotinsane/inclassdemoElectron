@@ -1,0 +1,10 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.example.myelectronapp
+productName: MyElectronApp
+win:
+  target: nsis
+  icon: assets/icon.ico
+files: []
+electronVersion: 35.1.1

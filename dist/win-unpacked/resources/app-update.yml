@@ -1,0 +1,4 @@
+owner: gursimrangillnotinsane
+repo: inclassdemoElectron
+provider: github
+updaterCacheDirName: electron-updater
