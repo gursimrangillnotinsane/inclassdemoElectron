@@ -72,8 +72,98 @@ Create a file called index.html in the src/ folder, which will contain the appâ€
 ### 6. Run your first app
     npm start
 this will run the app and you will see a new app
-
+### 7. Add the files
+create preload.js, icoHandlet.js in root directory and script.js in src
+### 8. ipcHander.js
+this file works with the file system, has access to the node environment
+    //required imports
+    const { app, ipcMain } = require('electron');
+    const path = require('path')
+    const fs = require('fs')
+    
+    //function to create txt files
+    // IPC (Inter-Process Communication) handler
+    ipcMain.handle('create-file', async (event, data) => {
+        if (!data || !data.title || !data.content) return false;
+        const folderName = path.join(__dirname, 'note');
+        try {
+            if (!fs.existsSync(folderName)) {
+                fs.mkdirSync(folderName);
+            }
+        }
+        catch (err) {
+            console.log(err.message)
+        }
+        const filePath = path.join(folderName, `${data.title}.txt`)
+        fs.writeFileSync(filePath, data.content);
+        return { success: true, filePath }
+    })
 ---
+### 9. preload.js
+This file acts as in intermediate between main process and renderer process
+    
+    const { contextBridge, ipcRenderer } = require('electron');
+    
+    contextBridge.exposeInMainWorld('api', {
+        title: "the note app",
+        createNote: (data) => ipcRenderer.invoke('create-file', data)
+    })
+### 10. Update index.js
+Update the index.js file to import the ipc functions and load the preload.js file
+    const { app, BrowserWindow } = require('electron');
+    const path = require('path')
+    require("./ipcHandler")
+    //create window
+    function createWindow() {
+        const win = new BrowserWindow({
+            //parameters
+            width: 720,
+            height: 1080,
+            // load the pre-loaded script
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
+        })
+    
+        //main entry file
+        win.loadFile('src/index.html')
+    }
+    //start the app
+    app.whenReady().then(createWindow);
+    
+    // to close the app
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') app.quit();
+    })
+
+### 11. Script.js
+Int his filw we will take the input from rendere process and give it to main process to execute the functions
+
+        console.log("Hello Class")
+        const titleNote = document.getElementById('notetitle');
+        const note = document.getElementById('content');
+        const button = document.getElementById('submit');
+        
+        
+        button.addEventListener('click', async () => {
+            const title = titleNote.value;
+            const content = note.value;
+            if (!title || !content) {
+                console.error('Title or content is missing');
+                return;
+            }
+            const res = await api.createNote({
+                title,
+                content
+            })
+            console.log(res)
+            titleNote.value = "";
+            note.value = "";
+        })
+
+### 12 . Run the app
+    npm runs start
+and see your files being added to the notes folder
 
 ## Packaging the App
 ### 1. Intall electron-builder using npm
