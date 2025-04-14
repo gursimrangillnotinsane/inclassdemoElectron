@@ -76,6 +76,7 @@ this will run the app and you will see a new app
 create preload.js, icoHandlet.js in root directory and script.js in src
 ### 8. ipcHander.js
 this file works with the file system, has access to the node environment
+    
     //required imports
     const { app, ipcMain } = require('electron');
     const path = require('path')
