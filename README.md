@@ -66,7 +66,7 @@ Create a file called index.html in the src/ folder, which will contain the appâ€
                 </div>
             </section>
         </body>
-
+        <script src="./script.js"></script>
     </html>
 
 ### 6. Run your first app
