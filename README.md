@@ -111,6 +111,7 @@ This file acts as in intermediate between main process and renderer process
     })
 ### 10. Update index.js
 Update the index.js file to import the ipc functions and load the preload.js file
+  
     const { app, BrowserWindow } = require('electron');
     const path = require('path')
     require("./ipcHandler")
